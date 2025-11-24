@@ -4,7 +4,7 @@
 
 ![PlantAnalytica Hero](https://images.unsplash.com/photo-1501004318641-b39e6451bec6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80)
 
-## 🚀 Features
+##  Features
 
 -   **Instant Plant Identification**: Identify plant species with high accuracy using our trained AI models.
 -   **Disease Detection**: Detect over 77 different plant diseases and health conditions.
@@ -12,7 +12,7 @@
 -   **Visual Analysis**: View the analyzed image with bounding boxes showing detected leaves and areas of interest.
 -   **User-Friendly Interface**: A clean, modern web interface inspired by top citizen science platforms.
 
-## 🛠️ How It Works
+##  How It Works
 
 PlantAnalytica uses a multi-stage AI pipeline to process and analyze plant images:
 
@@ -26,7 +26,7 @@ PlantAnalytica uses a multi-stage AI pipeline to process and analyze plant image
 
 ![AI Analysis](https://images.unsplash.com/photo-1550989460-0adf9ea622e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80)
 
-## 📦 Installation
+## Installation
 
 1.  **Clone the repository**:
     ```bash
@@ -60,7 +60,7 @@ PlantAnalytica uses a multi-stage AI pipeline to process and analyze plant image
 5.  **Access the app**:
     Open your browser and go to `http://127.0.0.1:8000/`.
 
-## 🧠 Models Used
+## Models Used
 
 -   **YOLOv8**: For robust object detection (leaf localization).
 -   **CNN (Convolutional Neural Networks)**: Custom trained models for:
@@ -68,7 +68,7 @@ PlantAnalytica uses a multi-stage AI pipeline to process and analyze plant image
     -   Species Classification (Multi-class)
     -   Health/Disease Classification
 
-## 📸 Screenshots
+## Screenshots
 
 ### Home Page
 ![Home Page](images/home.png)
@@ -77,10 +77,10 @@ PlantAnalytica uses a multi-stage AI pipeline to process and analyze plant image
 ![Results](images/result.png)
 
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License.
