@@ -30,7 +30,7 @@ staticfiles/
 .DS_Store
 Thumbs.db
 
-# Uploaded images
+# Uploaded images (user uploads)
 plants/
 *.jpg
 *.jpeg
@@ -38,3 +38,8 @@ plants/
 *.JPG
 *.JPEG
 *.PNG
+
+# But allow the images folder for README screenshots
+!images/
+!images/*.png
+!images/*.jpg
