@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlantAI | Identify, Explore, Contribute</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-green: #2ecc71;
+            --dark-green: #27ae60;
+            --header-height: 70px;
+            --hero-height: 600px;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .navbar {
+            height: var(--header-height);
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 0 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-brand i {
+            color: var(--primary-green);
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            height: var(--hero-height);
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            margin-top: var(--header-height);
+            position: relative;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+            max-width: 700px;
+        }
+
+        /* Upload Card */
+        .upload-card {
+            background: white;
+            border-radius: 50px;
+            padding: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 700px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .upload-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .upload-btn {
+            background-color: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .upload-btn:hover {
+            background-color: var(--dark-green);
+        }
+
+        /* Sections */
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-weight: 700;
+            margin-bottom: 50px;
+            color: #2c3e50;
+        }
+
+        /* How it Works */
+        .step-card {
+            text-align: center;
+            padding: 30px;
+            transition: transform 0.3s;
+        }
+
+        .step-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .step-icon {
+            width: 80px;
+            height: 80px;
+            background-color: #e8f5e9;
+            color: var(--primary-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 20px;
+        }
+
+        /* Features */
+        .feature-box {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            height: 100%;
+            border-bottom: 4px solid var(--primary-green);
+        }
+
+        /* Stats */
+        .stats-section {
+            background-color: #2c3e50;
+            color: white;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #1a252f;
+            color: #ecf0f1;
+            padding: 60px 0 20px;
+        }
+
+        .footer a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer a:hover {
+            color: var(--primary-green);
+        }
+
+        /* Results Section */
+        .results-container {
+            max-width: 1000px;
+            margin: -100px auto 50px;
+            position: relative;
+            z-index: 10;
+            padding: 0 20px;
+        }
+
+        .result-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            margin-bottom: 30px;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .status-healthy {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-diseased {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+
+        .result-body {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .result-body {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        .image-preview {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .species-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .species-name {
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .confidence-pill {
+            background-color: #f0f2f5;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            color: #555;
+        }
+
+        .treatment-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid var(--primary-green);
+        }
+
+        /* Loading */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary-green);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .d-none {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <nav class="navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-leaf"></i>
+                PlantAnalytica 
+            </a>
+            <div class="d-flex align-items-center">
+                <a href="#how-it-works" class="nav-link me-4 d-none d-md-block">How it Works</a>
+                <a href="#features" class="nav-link me-4 d-none d-md-block">Features</a>
+                <a href="#" class="btn btn-outline-success me-2">Login</a>
+                <a href="#" class="btn btn-success">Sign Up</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <h1 class="hero-title">Identify, Explore, Contribute</h1>
+        <p class="hero-subtitle">Join the largest citizen science project for plant biodiversity. Identify plants and
+            detect diseases instantly with AI.</p>
+
+        <div class="upload-card" id="uploadArea">
+            <input type="file" id="imageInput" accept="image/*" class="d-none">
+            <button class="upload-btn" onclick="document.getElementById('imageInput').click()">
+                <i class="fas fa-camera me-2"></i> Identify a Plant
+            </button>
+        </div>
+    </div>
+
+    <!-- Results Container -->
+    <div id="resultsContainer" class="results-container d-none">
+        <!-- Content injected by JS -->
+    </div>
+
+    <!-- How it Works -->
+    <section id="how-it-works" class="section-padding">
+        <div class="container">
+            <h2 class="section-title">How it Works</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h4>1. Capture</h4>
+                        <p class="text-muted">Take a clear photo of the plant leaf or upload an existing image from your
+                            gallery.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <i class="fas fa-microchip"></i>
+                        </div>
+                        <h4>2. Analyze</h4>
+                        <p class="text-muted">Our advanced AI model analyzes the image to identify the species and
+                            detect any diseases.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <i class="fas fa-notes-medical"></i>
+                        </div>
+                        <h4>3. Diagnose</h4>
+                        <p class="text-muted">Get instant results with species information and treatment prescriptions
+                            for diseases.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="section-padding bg-light">
+        <div class="container">
+            <h2 class="section-title">Why Choose PlantAI?</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <i class="fas fa-bolt fa-2x text-success mb-3"></i>
+                        <h5>Instant Identification</h5>
+                        <p class="text-muted">Get accurate plant identification in seconds using our state-of-the-art
+                            deep learning models.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <i class="fas fa-shield-virus fa-2x text-success mb-3"></i>
+                        <h5>Disease Detection</h5>
+                        <p class="text-muted">Early detection of plant diseases helps you take action before it's too
+                            late.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <i class="fas fa-user-md fa-2x text-success mb-3"></i>
+                        <h5>Expert Prescriptions</h5>
+                        <p class="text-muted">Receive tailored treatment advice and care tips for every identified
+                            disease.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats-section section-padding">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <div class="stat-number">77+</div>
+                    <div>Disease Classes Supported</div>
+                </div>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <div class="stat-number">95%</div>
+                    <div>Accuracy Rate</div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-number">10k+</div>
+                    <div>Plants Identified</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 class="text-white mb-3"><i class="fas fa-leaf me-2"></i>PlantAI</h5>
+                    <p class="text-muted">Empowering gardeners and farmers with AI-driven plant health solutions.</p>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="text-white mb-3">Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#how-it-works">How it Works</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="text-white mb-3">Legal</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h6 class="text-white mb-3">Newsletter</h6>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Enter your email">
+                        <button class="btn btn-success" type="button">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <hr class="border-secondary my-4">
+            <div class="text-center text-muted">
+                <small>&copy; 2025 PlantAI. All rights reserved.</small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div id="loadingSpinner" class="loading-overlay d-none">
+        <div class="spinner"></div>
+        <h4>Analyzing your plant...</h4>
+        <p class="text-muted">Please wait while our AI identifies the species and health.</p>
+    </div>
+
+    <script>
+        const imageInput = document.getElementById('imageInput');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const resultsContainer = document.getElementById('resultsContainer');
+        const uploadArea = document.getElementById('uploadArea');
+
+        // Initial Event Listener
+        imageInput.addEventListener('change', handleImageUpload);
+
+        async function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            // Show loading
+            loadingSpinner.classList.remove('d-none');
+            resultsContainer.classList.add('d-none');
+
+            const formData = new FormData();
+            formData.append('image', file);
+
+            try {
+                const response = await fetch("/api/detect-plant/", {
+                    method: "POST",
+                    body: formData
+                });
+
+                const data = await response.json();
+                loadingSpinner.classList.add('d-none');
+
+                if (!data.is_plant) {
+                    showError(data.message || "No plant detected.");
+                } else {
+                    showResults(data);
+                }
+
+            } catch (err) {
+                loadingSpinner.classList.add('d-none');
+                showError("An error occurred during analysis: " + err.message);
+            }
+        }
+
+        function showResults(data) {
+            const health = data.health_assessment.status;
+            const isHealthy = health === 'healthy';
+            const statusClass = isHealthy ? 'status-healthy' : 'status-diseased';
+            const statusText = isHealthy ? 'Healthy' : 'Diseased';
+            const statusIcon = isHealthy ? 'fa-check-circle' : 'fa-exclamation-circle';
+
+            resultsContainer.innerHTML = `
+                <div class="result-card">
+                    <div class="result-header">
+                        <h3 class="m-0"><i class="fas fa-search me-2"></i>Identification Results</h3>
+                        <span class="status-badge ${statusClass}">
+                            <i class="fas ${statusIcon} me-1"></i> ${statusText}
+                        </span>
+                    </div>
+                    
+                    <div class="result-body">
+                        <div>
+                            <h5 class="text-muted mb-3">Analyzed Image</h5>
+                            <img src="${data.visualization_image}" class="image-preview" alt="Analyzed Plant">
+                            <div class="mt-3 text-center text-muted small">
+                                ${data.detection_info.leaves_detected} leaves detected
+                            </div>
+                        </div>
+
+                        <div>
+                            <h5 class="text-muted mb-3">Top Matches</h5>
+                            <div class="species-list">
+                                ${data.species_top5.slice(0, 5).map(species => `
+                                    <div class="species-row">
+                                        <span class="species-name">${formatSpeciesName(species.name)}</span>
+                                        <span class="confidence-pill">${species.confidence.toFixed(1)}%</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+
+                            <div class="treatment-section">
+                                <h5 class="mb-2"><i class="fas fa-user-md me-2"></i>Diagnosis & Care</h5>
+                                <p class="mb-0">${data.prescription}</p>
+                            </div>
+
+                            <div class="mt-4">
+                                <button class="btn btn-outline-primary w-100" onclick="resetUpload()">
+                                    <i class="fas fa-redo me-2"></i> Identify Another Plant
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            resultsContainer.classList.remove('d-none');
+
+            // Scroll to results
+            resultsContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showError(message) {
+            resultsContainer.innerHTML = `
+                <div class="result-card">
+                    <div class="result-body text-center">
+                        <div class="text-danger mb-3"><i class="fas fa-times-circle fa-3x"></i></div>
+                        <h4>Analysis Failed</h4>
+                        <p class="text-muted">${message}</p>
+                        <button class="btn btn-primary mt-3" onclick="resetUpload()">Try Again</button>
+                    </div>
+                </div>
+            `;
+            resultsContainer.classList.remove('d-none');
+            resultsContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function formatSpeciesName(name) {
+            return name
+                .replace('PlantVillage_', '')
+                .replace(/_/g, ' ')
+                .replace(/___/g, ' - ')
+                .replace(/__/g, ' - ')
+                .replace(/\b\w/g, l => l.toUpperCase());
+        }
+
+        function resetUpload() {
+            // Reset the file input
+            const oldInput = document.getElementById('imageInput');
+            const newInput = document.createElement('input');
+            newInput.type = 'file';
+            newInput.id = 'imageInput';
+            newInput.accept = 'image/*';
+            newInput.className = 'd-none';
+            newInput.addEventListener('change', handleImageUpload);
+
+            oldInput.parentNode.replaceChild(newInput, oldInput);
+
+            // Hide results and scroll to top
+            resultsContainer.classList.add('d-none');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Trigger click on new input
+            newInput.click();
+        }
+    </script>
+</body>
+
+</html>
