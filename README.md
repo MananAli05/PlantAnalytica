@@ -71,10 +71,10 @@ PlantAnalytica uses a multi-stage AI pipeline to process and analyze plant image
 ## 📸 Screenshots
 
 ### Home Page
-![Home Page](static/home.png)
+![Home Page](D:\PlantDetectionApp\myproject\plant\static\home.png)
 
 ### Analysis Results
-![Results](static/result.png)
+![Results](D:\PlantDetectionApp\myproject\plant\static\result.png)
 
 ## 🤝 Contributing
 
