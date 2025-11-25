@@ -9,11 +9,21 @@ import cv2
 import os
 import json
 import tempfile
+from huggingface_hub import hf_hub_download
 from tensorflow.keras.models import load_model
-plant_nonplant_model = load_model(r'D:\PlantDetectionApp\myproject\plant\static\Plant_NonPlant_Model1.h5')
-plant_name_model = load_model(r'D:\PlantDetectionApp\myproject\plant\static\Plant_Name_Detection.h5')
-health_model = load_model(r'D:\PlantDetectionApp\myproject\plant\static\Plant_Health_detection_Model3.h5')
-yolo_model = YOLO(r"D:\PlantDetectionApp\myproject\plant\static\best.pt")
+REPO_ID = "AManan05/PlantAnalytica-Models"
+#Plant vs Non-Plant Model
+nonplant_path = hf_hub_download(repo_id=REPO_ID,filename="Plant_NonPlant_Model1.h5")
+plant_nonplant_model = load_model(nonplant_path)
+#Plant Name Detection Model
+name_path = hf_hub_download(repo_id=REPO_ID,filename="Plant_Name_Detection.h5")
+plant_name_model = load_model(name_path)
+#Plant Health / Disease Model
+health_path = hf_hub_download(repo_id=REPO_ID,filename="Plant_Health_detection_Model3.h5")
+health_model = load_model(health_path)
+#YOLO Model
+yolo_path = hf_hub_download(repo_id=REPO_ID,filename="best.pt")
+yolo_model = YOLO(yolo_path)
 def load_class_mapping():
     try:
         mapping_path = r'D:\PlantDetectionApp\myproject\plant\static\class_mapping.json'
